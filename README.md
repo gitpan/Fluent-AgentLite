@@ -10,7 +10,17 @@ This agent reads specified files, and sends each lines to fluentd servers. One l
 
 ### VERSION
 
-0.7
+0.9 http://tagomoris.github.io/tarballs/fluent-agent-lite.v0.9.tar.gz
+
+## PACKAGING TARBALL
+
+To get tarball of latest tagged version:
+
+    make -f Makefile.package
+
+Got tarball on `tmp/archive/fluent-agent-lite.vX.Y.tar.gz`.
+
+To do this, versions (tags) MUST be v1.0 not but v0.10 for sorting order...
 
 ## INSTALL
 
@@ -28,6 +38,8 @@ To build your rpm package, do 5 steps below.
 
 To install each RHEL/CentOS host, use yum server, or copy and rpm -i on each host.
 
+NOTE: `yum install perl-devel` and `QA_RPATHS=$[0x001] rpmbuild -ba` may help you if `rpmbuild` fails on your build environment.
+
 ### Other Linux or Unix-like OS
 
 On each host, do steps below.
@@ -37,7 +49,7 @@ On each host, do steps below.
 
 ## Configuration
 
-All of configurations are written in configuration shell-script file (/etc/fleunt-agent-lite.conf). Configurable values are below:
+All of configurations are written in configuration shell-script file (/etc/fluent-agent-lite.conf). Configurable values are below:
 
 ### LOGS
 
@@ -47,6 +59,14 @@ Pairs of tag and file, such as:
     www     /var/log/nginx/www_access.log
     app     /var/log/apache2/app_access.log
     EOF
+
+Or, you can use this syntax:
+
+    LOGS=$(cat /etc/fluent-agent.logs)
+    
+    ## in fluent-agent.logs
+    www  /var/log/nginx/www_access.log
+    app  /var/log/apache2/app_access.log
 
 ### TAG_PREFIX
 
